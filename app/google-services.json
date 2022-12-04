@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "575522244569",
+    "project_id": "messanger-ed797",
+    "storage_bucket": "messanger-ed797.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575522244569:android:d5e70c1274444720503bc8",
+        "android_client_info": {
+          "package_name": "com.geektech.messanger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575522244569-mvil8ppl6lall4dfeb8vu8ac04gdtmvm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBixT5zhfwFZVg_K95UoX30rneRQTUrghI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575522244569-mvil8ppl6lall4dfeb8vu8ac04gdtmvm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
