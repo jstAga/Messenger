@@ -2,13 +2,12 @@ package com.geektech.messanger.ui.auth
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.geektech.messanger.R
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.geektech.messanger.R
 import com.geektech.messanger.databinding.FragmentAuthBinding
 import com.geektech.messanger.utils.showToast
 import com.google.firebase.FirebaseException
@@ -17,25 +16,17 @@ import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.concurrent.TimeUnit
 
-// init callbacks +
-// send code
-// check code
-// get name, avatar, surname
-// save date
-
-
 class AuthFragment : Fragment() {
     private lateinit var binding: FragmentAuthBinding
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    private var auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
     private var phoneNumber = ""
     private var userId = ""
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAuthBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -63,14 +54,13 @@ class AuthFragment : Fragment() {
 
     private fun checkCode() {
         val credential =
-            PhoneAuthProvider.getCredential(userId!!, binding.inAccept.smsCodeView.enteredCode)
+            PhoneAuthProvider.getCredential(userId, binding.inAccept.smsCodeView.enteredCode)
         signInWithPhoneAuthCredential(credential)
     }
 
     private fun sendCode() {
         initCallbacks()
         phoneNumber = binding.inAuth.etPhoneNumber.text.toString()
-        Log.d("aga", "number-" + phoneNumber)
 
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)
@@ -115,7 +105,7 @@ class AuthFragment : Fragment() {
             }
 
             ref.set(userData).addOnCompleteListener {
-                if (it.isSuccessful) {
+                if (it.isSuccessful && binding.inUsername.etFirstName.text.isNotEmpty()) {
                     findNavController().navigate(R.id.chatFragment)
                 } else {
                     it.exception?.message?.let { it1 -> showToast(it1) }
@@ -124,23 +114,24 @@ class AuthFragment : Fragment() {
         }
     }
 
+
     private fun initCallbacks() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.d("aga", "onVerificationCompleted:$credential")
+                showToast(credential.toString())
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Log.d("aga", "onVerificationFailed", e)
-
+                showToast(e.message.toString())
                 if (e is FirebaseAuthInvalidCredentialsException) {
-                    Log.d("aga", "error", e)
+                    showToast(e.message.toString())
                 } else if (e is FirebaseTooManyRequestsException) {
-                    Log.d("aga", "error", e)
+                    showToast(e.message.toString())
                 }
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
@@ -149,8 +140,11 @@ class AuthFragment : Fragment() {
 
                 binding.authContainer.visibility = View.GONE
                 binding.acceptContainer.visibility = View.VISIBLE
+
+                binding.inAccept.tvAcceptDesc.text = getString(R.string.accept_desc) + phoneNumber
             }
         }
     }
-}
+    }
+
 

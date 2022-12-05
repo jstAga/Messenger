@@ -11,5 +11,7 @@
     <string name="second_name_optional">Second name (optional)</string>
     <string name="username_desc">Enter your name and add a profile picture.</string>
     <string name="profile_info">Profile info</string>
-
+    <string name="surname">Surname</string>
+    <string name="name">Name</string>
+    <string name="uid">uid</string>
 </resources>
