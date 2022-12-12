@@ -5,19 +5,19 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import com.geektech.messanger.model.Message
 import android.view.ViewGroup
 import com.geektech.messanger.databinding.FragmentChatBinding
-import com.geektech.messanger.model.User
-import com.geektech.messanger.ui.chat.adapter.ChatAdapter
+import com.geektech.messanger.utils.Keys
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
-
 
 class ChatFragment : Fragment() {
+    private lateinit var ref: CollectionReference
     private lateinit var binding: FragmentChatBinding
-    private val userDataFields = arrayOf("uid", "phone", "username", "userSecondName")
-    private var userList = arrayListOf<User>()
-
+    private lateinit var uid: String
+    private var receiverUid = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,35 +30,48 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadData()
-    }
+        uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        receiverUid = arguments?.getString(Keys.RECEIVER_UID).toString()
+        ref = FirebaseFirestore.getInstance().collection("Messages")
 
-    private fun loadData() {
-        FirebaseFirestore.getInstance().collection("Users")
-            .addSnapshotListener { value, e ->
-                if (e != null) {
-                    Log.w("aga", "Listen failed.", e)
-                    return@addSnapshotListener
-                }
-                for (doc in value!!) {
-                    userList.add(getUserData(doc))
-                    binding.rvChat.adapter = ChatAdapter(userList)
-                }
-            }
-    }
+        binding.btnSend.setOnClickListener {
+            sendMessage()
+        }
 
-    private fun getUserData(doc: QueryDocumentSnapshot): User {
-        val userData = hashMapOf<String, String>()
-        for (field in userDataFields) {
-            doc.getString(field)?.let {
-                userData[field] = it
+        ref.addSnapshotListener { value, error ->
+            if (value != null) {
+                for (item in value.documents) {
+                    if (item.data?.get("receiverUid").toString() == receiverUid &&
+                        item.data?.get("senderUid").toString() == uid
+                    ) {
+                        val message = Message(
+                            item.data?.get("senderUid").toString(),
+                            item.data?.get("receiverUid").toString(),
+                            item.data?.get("message").toString(),
+                            item.data?.get("time") as Long
+                        )
+                        Log.e("aga",message.message)
+                    }
+                }
             }
         }
-        return User(
-            userData["uid"],
-            userData["phone"],
-            userData["username"],
-            userData["userSecondName"]
-        )
     }
+
+    private fun sendMessage() {
+        val data = Message(uid, receiverUid, binding.etMessage.text.toString())
+
+        ref.document().set(data).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.e("aga", "successful")
+            } else {
+                Log.e("aga", "error")
+            }
+            clearText()
+        }
+    }
+
+    private fun clearText() {
+        binding.etMessage.setText("")
+    }
+
 }

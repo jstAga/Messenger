@@ -6,15 +6,21 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.10359905819038008" />
         <entry key="app/src/main/res/drawable/bg_et.xml" value="0.1105" />
         <entry key="app/src/main/res/drawable/bg_item.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_send.xml" value="0.1195" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28177083333333336" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.2970748901367187" />
+        <entry key="app/src/main/res/layout/fragment_chat2.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_on_boarding.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.2953125" />
+        <entry key="app/src/main/res/layout/fragment_users.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/include_accept.xml" value="0.25322723388671875" />
         <entry key="app/src/main/res/layout/include_auth.xml" value="0.297187714976043" />
         <entry key="app/src/main/res/layout/include_username.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/item_chat.xml" value="0.2942708333333333" />
+        <entry key="app/src/main/res/layout/item_left.xml" value="0.2942708333333333" />
+        <entry key="app/src/main/res/layout/item_right.xml" value="0.718658447265625" />
+        <entry key="app/src/main/res/layout/item_view_pager.xml" value="0.2942708333333333" />
       </map>
     </option>
   </component>

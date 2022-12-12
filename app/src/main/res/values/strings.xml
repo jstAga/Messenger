@@ -5,7 +5,7 @@
     <string name="phone_number">Phone number</string>
     <string name="your_phone_number">Your phone number</string>
     <string name="auth_desc">Please confirm your country code and enter your phone number.</string>
-    <string name="accept_desc">We`we sent an SMS with an activation code to your phone</string>
+    <string name="accept_desc">We`we sent an SMS with an activation code to your phone </string>
     <string name="enter_code">Enter code</string>
     <string name="first_name_required">First name (required)</string>
     <string name="second_name_optional">Second name (optional)</string>
@@ -14,4 +14,9 @@
     <string name="surname">Surname</string>
     <string name="name">Name</string>
     <string name="uid">uid</string>
+    <string name="skip">Skip</string>
+    <string name="title">Title</string>
+    <string name="desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="get_started">Get started</string>
+    <string name="message">message</string>
 </resources>

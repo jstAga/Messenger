@@ -21,6 +21,11 @@
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" />
     <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.geektech.messanger.ui.users.UsersFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_users" />
+    <fragment
         android:id="@+id/chatFragment"
         android:name="com.geektech.messanger.ui.chat.ChatFragment"
         android:label="fragment_chat"

@@ -1,15 +1,22 @@
 package com.geektech.messanger.ui.chat.adapter
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.geektech.messanger.databinding.ItemChatBinding
-import com.geektech.messanger.model.User
+import com.geektech.messanger.model.Message
 
-class ChatAdapter(private val userList: List<User>) :
+class ChatAdapter(private val onClick: (uid: String) -> Unit) :
     RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
+    private val data = arrayListOf<Message>()
+
+    fun addUsers(newData: ArrayList<Message>) {
+        data.clear()
+        data.addAll(newData)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         return ChatViewHolder(
@@ -22,22 +29,15 @@ class ChatAdapter(private val userList: List<User>) :
     }
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        holder.bind(userList[position])
+        holder.bind(data[position])
     }
 
-    override fun getItemCount(): Int = userList.size
+    override fun getItemCount(): Int = data.size
 
     inner class ChatViewHolder(private val binding: ItemChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(userData: User) {
-            binding.tvName.text = userData.userName
-            binding.tvPhoneNumber.text = userData.phone
-            binding.tvUid.text = userData.uid
-            if (userData.userSecondName != null) {
-                binding.tvSurname.text = userData.userSecondName
-            } else {
-                binding.tvSurname.text = ""
-            }
+        fun bind(userData: Message) {
+
         }
     }
 }

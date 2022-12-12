@@ -21,6 +21,7 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSplashBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -34,9 +35,9 @@ class SplashFragment : Fragment() {
             if (FirebaseAuth.getInstance().currentUser?.uid == null) {
                 findNavController().navigate(R.id.authFragment)
             } else {
-                findNavController().navigate(R.id.chatFragment)
+                findNavController().navigate(R.id.usersFragment)
             }
-        }, 1000)
+        }, 5000)
 
     }
 }
